@@ -1,0 +1,148 @@
+.card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.cardHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  color: #111827;
+  margin: 0;
+}
+
+.cardBody {
+  border-top: 1px solid #e5e7eb;
+  padding: 1.5rem;
+}
+
+.detailsList {
+  margin: 0;
+}
+
+.detailItem {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .detailItem {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 1.25rem 0;
+  }
+}
+
+.detailLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.detailValue {
+  font-size: 0.875rem;
+  color: #111827;
+  margin: 0;
+  grid-column: span 2 / span 2;
+}
+
+.link {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.visitorsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.visitorContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.visitorIp {
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.noVisitors {
+  color: #6b7280;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  text-align: right;
+  gap: 1rem;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 16rem;
+}
+
+.errorAlert {
+  background-color: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.errorContent {
+  display: flex;
+  align-items: flex-start;
+}
+
+.errorIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.errorText {
+  margin-left: 0.75rem;
+  font-size: 0.875rem;
+  color: #b91c1c;
+}
+
+.noData {
+  color: #6b7280;
+  font-style: italic;
+}

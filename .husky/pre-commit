@@ -1,0 +1,2 @@
+# npm run db:check-migrations -w backend
+npx lint-staged

@@ -1,0 +1,37 @@
+# Общие
+.git
+.gitignore
+node_modules
+npm-debug.log
+pnpm-lock.yaml
+yarn.lock
+.DS_Store
+.env
+.env.* # все окружения
+
+# Логи
+logs
+*.log
+
+# IDE и системные файлы
+.idea
+.vscode
+*.swp
+*.swo
+
+# Кэш
+.cache
+dist
+coverage
+tmp
+*.tsbuildinfo
+
+# Сборка фронта
+frontend/dist
+frontend/.vite
+frontend/node_modules
+
+# Сборка бэка
+backend/dist
+backend/node_modules
+backend/logs
