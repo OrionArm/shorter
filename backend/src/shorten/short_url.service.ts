@@ -6,8 +6,8 @@ import {
 import { count, desc, eq } from 'drizzle-orm';
 import { DrizzleService } from '../db/drizzle.service';
 import { CreateShortUrlDto } from './create-short-url.dto';
-import { shortUrls, ShortUrl } from './short_url.schema';
-import { urlVisits } from './url_visits.schema';
+import { shortUrlsTable, ShortUrl } from './short_url.schema';
+import { urlVisitsTable } from './url_visits.schema';
 
 @Injectable()
 export class ShortUrlService {
@@ -29,8 +29,8 @@ export class ShortUrlService {
     if (data.alias) {
       const existing = await db
         .select()
-        .from(shortUrls)
-        .where(eq(shortUrls.alias, data.alias));
+        .from(shortUrlsTable)
+        .where(eq(shortUrlsTable.alias, data.alias));
 
       if (existing.length > 0) {
         throw new ConflictException('Alias already in use');
@@ -38,8 +38,8 @@ export class ShortUrlService {
     } else {
       const existing = await db
         .select()
-        .from(shortUrls)
-        .where(eq(shortUrls.alias, shortCode));
+        .from(shortUrlsTable)
+        .where(eq(shortUrlsTable.alias, shortCode));
 
       if (existing.length > 0) {
         // рекурсивно попробовать ещё раз
@@ -48,7 +48,7 @@ export class ShortUrlService {
     }
 
     const result = await db
-      .insert(shortUrls)
+      .insert(shortUrlsTable)
       .values({
         url: data.url,
         alias: data.alias || shortCode,
@@ -62,8 +62,8 @@ export class ShortUrlService {
   async get(alias: string): Promise<ShortUrl | null> {
     const [result] = await this.drizzle.db
       .select()
-      .from(shortUrls)
-      .where(eq(shortUrls.alias, alias))
+      .from(shortUrlsTable)
+      .where(eq(shortUrlsTable.alias, alias))
       .limit(1);
 
     return result || null;
@@ -71,9 +71,9 @@ export class ShortUrlService {
 
   private async getOriginalUrl(alias: string): Promise<string | null> {
     const [result] = await this.drizzle.db
-      .select({ originalUrl: shortUrls.url })
-      .from(shortUrls)
-      .where(eq(shortUrls.alias, alias))
+      .select({ originalUrl: shortUrlsTable.url })
+      .from(shortUrlsTable)
+      .where(eq(shortUrlsTable.alias, alias))
       .limit(1);
 
     return result.originalUrl ?? null;
@@ -85,7 +85,7 @@ export class ShortUrlService {
       if (!url) {
         throw new NotFoundException('URL not found');
       }
-      await tx.insert(urlVisits).values({
+      await tx.insert(urlVisitsTable).values({
         alias,
         ipAddress,
       });
@@ -101,7 +101,9 @@ export class ShortUrlService {
       throw new NotFoundException('Short URL not found');
     }
 
-    await this.drizzle.db.delete(shortUrls).where(eq(shortUrls.alias, alias));
+    await this.drizzle.db
+      .delete(shortUrlsTable)
+      .where(eq(shortUrlsTable.alias, alias));
 
     return;
   }
@@ -128,19 +130,19 @@ export class ShortUrlService {
   private async getTotalClicks(alias: string) {
     return this.drizzle.db
       .select({ count: count() })
-      .from(urlVisits)
-      .where(eq(urlVisits.alias, alias))
+      .from(urlVisitsTable)
+      .where(eq(urlVisitsTable.alias, alias))
       .then((res) => res[0]?.count || 0);
   }
 
   private async getRecentIps(alias: string, limit = 5): Promise<string[]> {
     return this.drizzle.db
       .select({
-        ip: urlVisits.ipAddress,
+        ip: urlVisitsTable.ipAddress,
       })
-      .from(urlVisits)
-      .where(eq(urlVisits.alias, alias))
-      .orderBy(desc(urlVisits.visitedAt))
+      .from(urlVisitsTable)
+      .where(eq(urlVisitsTable.alias, alias))
+      .orderBy(desc(urlVisitsTable.visitedAt))
       .limit(limit)
       .then((res) => res.map(({ ip }) => ip));
   }

@@ -8,6 +8,13 @@
       "when": 1750276090501,
       "tag": "0000_familiar_wasp",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1750341598578,
+      "tag": "0001_regular_cerebro",
+      "breakpoints": true
     }
   ]
 }
