@@ -4,9 +4,11 @@ import "./app.css";
 import { router, Routing } from "./router";
 
 const App = () => (
-  <RouterProvider router={router}>
-    <Routing />
-  </RouterProvider>
+  <div className="app">
+    <RouterProvider router={router}>
+      <Routing />
+    </RouterProvider>
+  </div>
 );
 
 export default App;

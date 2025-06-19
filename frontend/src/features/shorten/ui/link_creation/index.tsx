@@ -1,38 +1,19 @@
-import {
-  AliasIcon,
-  CalendarIcon,
-  Input,
-  LinkIcon,
-  SubmitButton,
-} from "@/shared/ui";
-import { useCreateLink } from "../../lib/use_create_link";
+import { AliasIcon, CalendarIcon, Input, LinkIcon, Button } from "@/shared/ui";
+import { useUnit } from "effector-react";
+import { $linkDataError, createLinkFx } from "../../model";
 import styles from "./styles.module.css";
-import { appRoutes } from "@/shared/routes";
 
-type Props = {
-  onSubmit?: (data: {
-    url: string;
-    alias?: string;
-    expiresAt?: string;
-  }) => void;
-};
-
-export const LinkCreationView: React.FC<Props> = () => {
-  const { createLink, error } = useCreateLink();
+export const LinkCreationView: React.FC = () => {
+  const [createLink, error] = useUnit([createLinkFx, $linkDataError]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    try {
-      const { alias } = await createLink({
-        url: formData.get("url") as string,
-        alias: formData.get("alias") as string,
-        expiresAt: formData.get("expiresAt") as string,
-      });
-      appRoutes.manageLink.open({ slug: alias });
-    } catch {
-      // Ошибка уже обработана в хуке useCreateLink
-    }
+    createLink({
+      url: formData.get("url") as string,
+      alias: formData.get("alias") as string,
+      expiresAt: formData.get("expiresAt") as string,
+    });
   };
 
   return (
@@ -60,12 +41,12 @@ export const LinkCreationView: React.FC<Props> = () => {
         label="Пользовательский алиас"
         placeholder="my-custom-alias"
         pattern="[a-zA-Z0-9-]+"
-        title="Only letters, numbers and hyphens are allowed"
+        title="Разрешены только буквы, цифры и дефисы"
         maxLength={20}
         icon={<AliasIcon />}
       />
       {error && <div className={styles.error}>{error}</div>}
-      <SubmitButton name="Создать" />
+      <Button name="Создать" type="submit" />
     </form>
   );
 };

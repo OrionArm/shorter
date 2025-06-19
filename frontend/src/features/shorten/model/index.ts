@@ -1,3 +1,2 @@
-export * from "./create_link";
-export * from "./manage_link";
+export * from "./link_store";
 export * from "./analytics";

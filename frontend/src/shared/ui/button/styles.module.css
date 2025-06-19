@@ -1,0 +1,82 @@
+.button {
+  padding: 0.6em 1.2em;
+  background-color: var(--color-button-bg);
+  color: white;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover:not(:disabled) {
+  border-color: var(--color-button-hover);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.button:disabled {
+  background-color: var(--color-button-disabled-bg);
+  cursor: not-allowed;
+}
+
+.primary {
+  background-color: var(--color-button-primary);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-button-primary-hover);
+}
+
+.secondary {
+  background-color: var(--color-button-secondary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-button-secondary-hover);
+}
+
+.danger {
+  background-color: var(--color-error);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: var(--color-error-hover);
+}
+
+.success {
+  background-color: var(--color-success);
+}
+
+.success:hover:not(:disabled) {
+  background-color: var(--color-success-hover);
+}
+
+.default {
+  background-color: var(--color-button-default);
+}
+
+.default:hover:not(:disabled) {
+  background-color: var(--color-button-default-hover);
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--color-text-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

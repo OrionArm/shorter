@@ -4,8 +4,8 @@ import {
   type AnalyticsResponse,
   type LinkResponse,
 } from "../api";
-import { $linkData } from "./manage_link";
-import { createNewLinkEv } from "./create_link";
+import { $linkData } from "./link_store";
+import { openCreateNewLinkEv } from "./link_store";
 
 export const getLinkAnalyticsEv = createEvent();
 export const getLinkAnalyticsFx = createEffect<string, AnalyticsResponse>(
@@ -21,4 +21,4 @@ sample({
 });
 
 export const $analyticsData = restore(getLinkAnalyticsFx.doneData, null);
-$analyticsData.on(createNewLinkEv, () => null);
+$analyticsData.on(openCreateNewLinkEv, () => null);

@@ -5,7 +5,7 @@ export const CreateLinkPage = () => {
   return (
     <div className={styles.page}>
       <h1>Шортер</h1>
-      <p className="read-the-docs">
+      <p>
         Помогите клиентам быстро найти вашу страницу в интернете. Благодаря
         короткой ссылке клиентам не придётся видеть длинные url-адреса,
         занимающие много места.
